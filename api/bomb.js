@@ -2,13 +2,16 @@ import { normalize } from '../lib/phone.js';
 import { runBomb } from '../lib/engine.js';
 import * as store from '../lib/store.js';
 import { ok, fail, preflight, respond } from '../lib/brand.js';
-import { randomUUID } from 'node:crypto';
+
+// Edge runtime wapis laga diya
+export const config = { runtime: 'edge' };
 
 export default async function handler(req) {
   if (req.method === 'OPTIONS') return preflight();
 
   const url = new URL(req.url);
-  const rid = randomUUID().slice(0, 8);
+  // node:crypto ki jagah web crypto use kiya
+  const rid = crypto.randomUUID().slice(0, 8);
   const h = { 'x-request-id': rid };
 
   const key = process.env.API_KEY;

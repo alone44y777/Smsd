@@ -4,8 +4,6 @@ import * as store from '../lib/store.js';
 import { ok, fail, preflight, respond } from '../lib/brand.js';
 import { randomUUID } from 'node:crypto';
 
-export const config = { runtime: 'edge' };
-
 export default async function handler(req) {
   if (req.method === 'OPTIONS') return preflight();
 
@@ -59,4 +57,4 @@ export default async function handler(req) {
   } finally {
     await store.unlock(lockKey);
   }
-  }
+}
